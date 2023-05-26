@@ -1,8 +1,9 @@
-import React from 'react';
-import {Button as StyledButton} from './index.styles.js';
+import React from "react";
+import { Button as StyledButton } from "./index.styles.js";
 
-export const Button = ({children}) => {
-    return (<StyledButton>
-            {children}
-        </StyledButton>);
+/**
+ * @view - 'primary' | 'secondary'
+ */
+export const Button = ({ children, ...props }) => {
+  return <StyledButton {...props}>{children}</StyledButton>;
 };
