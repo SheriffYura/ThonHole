@@ -5,12 +5,16 @@ import {Button} from '../button';
 import {Modal}from '../modal';
 import {ThingAddForm} from '../thing-add-form';
 import {useThingsContext} from '../../context/things-context/useThingsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogged } from '../../redux/userSlice.js';
+import { getIsLoggedIn } from '../../redux/selectors.js';
 
 
 export const MainMenu = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {addThing} = useThingsContext();
-   
+   const dispatch = useDispatch();
+	 const isLoggedIn = useSelector(getIsLoggedIn)
 
     const onModalOpenClick = () => {
         setIsModalOpen(true);
@@ -24,7 +28,12 @@ export const MainMenu = () => {
         closeModal();
         addThing(thing);
     };
-   
+
+    const onLoginClick = () => {
+			const action = setUserLogged(!isLoggedIn);
+			dispatch(action);
+	};
+
     return (
         <MenuWrapper>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -34,8 +43,8 @@ export const MainMenu = () => {
             <Button view='secondary' onClick={onModalOpenClick}>
                 Add lost thing
             </Button>
-            <Button view='primary'>
-                Login
+            <Button view='primary' onClick={onLoginClick}>
+                { isLoggedIn ?'Logout': 'Login'}
             </Button>
         </MenuWrapper>
     );
