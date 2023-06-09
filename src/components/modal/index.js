@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { ModalWrapper, ModalContent, ModalBackdrop } from "./index.styles.js";
+import React, {useState, useEffect} from 'react';
+import {createPortal} from 'react-dom';
+import {ModalWrapper, ModalContent, ModalBackdrop, ModalHeader} from './index.styles.js';
+import {IoIosClose} from 'react-icons/io';
 
-export const Modal = ({ children, isOpen, onClose }) => {
-  const [isModalOpen, setIsModalOpen] = useState(isOpen || false);
 
-  useEffect(() => {
-    setIsModalOpen(isOpen);
-  }, [isOpen]);
+export const Modal = ({children, isOpen, onClose}) => {
+    const [isModalOpen, setIsModalOpen] = useState(isOpen || false);
 
-  const defaultClose = () => {
-    setIsModalOpen(false);
-    onClose?.();
-  };
+    useEffect(() => {
+        setIsModalOpen(isOpen);
+    }, [isOpen]);
 
-  return (
-    isModalOpen &&
-    createPortal(
-      <ModalWrapper>
-        <ModalContent>
-          <div onClick={defaultClose}>X</div>
-          {children}
-        </ModalContent>
-        <ModalBackdrop onClick={defaultClose} />
-      </ModalWrapper>,
-      document.body
-    )
-  );
+    const defaultClose = () => {
+        setIsModalOpen(false);
+        onClose?.();
+    };
+
+    return isModalOpen && createPortal(
+        <ModalWrapper>
+            <ModalContent>
+                <ModalHeader>
+                    <IoIosClose size='2em' onClick={defaultClose} />
+                </ModalHeader>
+                {children}
+            </ModalContent>
+            <ModalBackdrop onClick={defaultClose}/>
+        </ModalWrapper>,
+        document.body
+    );
 };
+
+

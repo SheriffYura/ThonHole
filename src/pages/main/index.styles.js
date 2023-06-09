@@ -10,6 +10,7 @@ export const ContentWrapper = styled.div`
     display: flex;
     height: 100%;
     overflow: hidden;
+    padding-top: 90px;
 `;
 
 export const LeftSide = styled.div`
@@ -19,5 +20,4 @@ export const LeftSide = styled.div`
 
 export const RightSide = styled.div`
     ${baseSideCss}
-    background-color: blue;
 `;
